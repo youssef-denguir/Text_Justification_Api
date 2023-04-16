@@ -1,17 +1,33 @@
 import express from "express";
 import compression from "compression";
-import * as apiController from "./controllers/api";
+import errorHandler from "errorhandler";
+import { AuthController } from "./controllers/auth";
 
+export class App {
+    private readonly _app: express.Application; 
 
-// Create Express server
-const app = express();
+    constructor() {
+        this._app = express();
+    }
 
+    init(): express.Application {
+        this._app.set("port", process.env.PORT || 3000);
+        this.initMiddlewares();
+        this.initRoutes();
+        return this._app;
+    }
 
-// Express configuration
-app.set("port", process.env.PORT || 3000);
-app.use(compression());
-app.use(express.json());
+    initMiddlewares(): void {
+        if (process.env.NODE_ENV === "development") {
+            this._app.use(errorHandler());
+        }
 
-app.get("/api", apiController.getIndex);
+        this._app.use(compression());
+        this._app.use(express.json());
+    }
 
-export default app;
+    initRoutes(): void {
+        this._app.use("/api/v1/auth", new AuthController().getRouter());
+        // this._app.use("/api/v1/text-processing", textProcessingRouter);
+    }
+}

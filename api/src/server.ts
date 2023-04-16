@@ -1,14 +1,6 @@
-import errorHandler from "errorhandler";
-import app from "./app";
+import { App } from "./app";
 
-
-/**
- * Error Handler. Provides full stack
- */
-if (process.env.NODE_ENV === "development") {
-    app.use(errorHandler());
-}
-
+const app = new App().init();
 
 /**
  * Launch Express server.
