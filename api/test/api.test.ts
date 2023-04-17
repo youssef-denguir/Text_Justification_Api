@@ -1,9 +1,9 @@
 import request from "supertest";
-import app from "../src/app";
+import { App } from "../../app";
 
 describe("GET /api", () => {
     it("should return 200 OK", () => {
-        return request(app).get("/api")
+        return request(new App().init()).get("/api")
             .expect(200);
     });
 });

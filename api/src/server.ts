@@ -1,16 +1,18 @@
 import { App } from "./app";
+import { NODE_ENV, PORT } from "./config";
+import { dbConnection } from "./db";
+import { connect } from "mongoose";
 
-const app = new App().init();
-
-/**
- * Launch Express server.
- */
-const server = app.listen(app.get("port") || 3000, () => {
-    console.log(
-        "  App is running at http://localhost:%d in %s mode",
-        app.get("port"),
-        app.get("env")
-    );
-});
-
-export default server;
+async function main(): Promise<void> {
+    const app = new App().init();
+    await connect(dbConnection.url, dbConnection.options);
+    app.listen(PORT, () => {
+        console.log(
+            "App is running at http://localhost:%d in %s mode",
+            PORT,
+            NODE_ENV
+        );
+    });
+}
+    
+main();
