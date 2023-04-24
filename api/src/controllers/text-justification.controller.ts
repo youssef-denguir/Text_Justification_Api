@@ -18,7 +18,45 @@ export class TextJustificationController {
     getRouter(): Router {
         return this._router;
     }
-
+/**
+ * @swagger
+ * /justify:
+ *   post:
+ *     summary: Justify a plain text
+ *     description: This endpoint justifies a plain text
+ *     security:
+ *       - bearerAuth: []
+ *     consumes:
+ *       - text/plain
+ *     produces:
+ *       - text/plain
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         description: JWT authorization header
+ *         required: true
+ *         type: string
+ *         example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+ *       - in: body
+ *         name: body
+ *         description: Plain text to justify
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: OK
+ *         schema:
+ *           type: string
+ *         example: |
+ *           This is an example of justified text
+ *       402:
+ *         $ref: '#/definitions/PaymentRequiredError'
+ *       400:
+ *         $ref: '#/definitions/BadRequestError'
+ *       500:
+ *         $ref: '#/definitions/InternalServerError'
+ */
     private justifyText(req: Request & { token: string }, res: Response): void {
         try {  
             const { token }  = req;
