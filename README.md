@@ -3,6 +3,9 @@
 
 This API provides endpoints for text justification, authentication, and Swagger documentation. It is built using Node.js, Express.js, and JWT for authentication.
 
+The API is hosted at: `https://text-justification-4.onrender.com/`
+
+
 ## Endpoints
 ### `/api/auth/token`
 
